@@ -93,8 +93,8 @@ class Snake(GameObject):
         self.direction = self.next_direction or self.direction
         x, y = self.position
         dx, dy = self.direction
-        new_head = ((x + dx * GRID_SIZE) % SCREEN_WIDTH, (y + dy * GRID_SIZE)
-                    % SCREEN_HEIGHT)
+        new_head = ((x + dx * GRID_SIZE) % SCREEN_WIDTH,
+                    (y + dy * GRID_SIZE) % SCREEN_HEIGHT)
 
         # Проверяем столкновение с яблоком
         if new_head == apple.position:
@@ -114,6 +114,18 @@ class Snake(GameObject):
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, self.body_color, rect)
             pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
+
+    def get_head_position(self):
+        """Возвращает позицию головы змейки."""
+        return self.positions[0]
+
+    def reset(self):
+        """Сбрасывает змейку в начальное состояние."""
+        self.length = 1
+        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE,
+                           GRID_HEIGHT // 2 * GRID_SIZE)]
+        self.direction = RIGHT
+        self.next_direction = None
 
 
 def handle_keys(snake):
